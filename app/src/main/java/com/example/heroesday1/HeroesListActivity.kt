@@ -3,9 +3,11 @@ package com.example.heroesday1
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.heroesday1.databinding.ActivityHeroesListBinding
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class HeroesListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHeroesListBinding
@@ -23,12 +25,12 @@ class HeroesListActivity : AppCompatActivity() {
         loadJSON()
         Log.d(TAG, "heroList: $heroList")
 
-        sortHeroes()
+        // sortHeroes()
 
         val heroAdapter = HeroAdapter(heroList)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView_heroesList_heroes)
-        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        val recyclerView: RecyclerView = binding.recyclerViewHeroesListHeroes
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = heroAdapter
     }
 
@@ -42,7 +44,7 @@ class HeroesListActivity : AppCompatActivity() {
             it.readText()
         }
         val gson = Gson()
-        val sType = object: com.google.gson.reflect.TypeToken<List<Hero>>() { }.type
+        val sType = object: TypeToken<List<Hero>>() { }.type
         val otherList = gson.fromJson<List<Hero>>(jsonString, sType)
 
         heroList = otherList
