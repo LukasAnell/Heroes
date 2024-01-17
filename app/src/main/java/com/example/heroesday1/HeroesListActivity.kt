@@ -1,8 +1,12 @@
 package com.example.heroesday1
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.heroesday1.databinding.ActivityHeroesListBinding
@@ -19,7 +23,6 @@ class HeroesListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_heroes_list)
         binding = ActivityHeroesListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadJSON()
@@ -45,8 +48,30 @@ class HeroesListActivity : AppCompatActivity() {
         }
         val gson = Gson()
         val sType = object: TypeToken<List<Hero>>() { }.type
-        val otherList = gson.fromJson<List<Hero>>(jsonString, sType)
+        val otherList = gson.fromJson<List<Hero>>(jsonString, sType) .sortedBy { it.ranking }
 
         heroList = otherList
+    }
+
+    @SuppressLint("ResourceType")
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.id.heroesList_menu_sortOptions, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection.
+        return when (item.itemId) {
+            R.id.new_game -> {
+                newGame()
+                true
+            }
+            R.id.help -> {
+                showHelp()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

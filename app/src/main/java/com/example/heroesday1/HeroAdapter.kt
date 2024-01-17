@@ -40,11 +40,7 @@ class HeroAdapter(private var heroList: List<Hero>): RecyclerView.Adapter<HeroAd
             // Toast.makeText(context, hero.name, Toast.LENGTH_SHORT).show()
             val intent = Intent(context, HeroesDetailActivity::class.java)
 
-            intent.putExtra("name", hero.name)
-            intent.putExtra("description", hero.description)
-            intent.putExtra("ranking", hero.ranking.toString())
-            intent.putExtra("superpower", hero.superpower)
-            intent.putExtra("image", hero.image)
+            intent.putExtra("hero", HeroesDetailActivity.EXTRA_HERO)
 
             context.startActivity(intent)
         }
