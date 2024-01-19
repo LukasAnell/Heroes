@@ -1,4 +1,4 @@
-package com.example.heroesday1
+package com.example.heroes
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.heroesday1.R
 
 class HeroAdapter(private var heroList: List<Hero>): RecyclerView.Adapter<HeroAdapter.ViewHolder>(){
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -40,7 +41,7 @@ class HeroAdapter(private var heroList: List<Hero>): RecyclerView.Adapter<HeroAd
             // Toast.makeText(context, hero.name, Toast.LENGTH_SHORT).show()
             val intent = Intent(context, HeroesDetailActivity::class.java)
 
-            intent.putExtra("hero", HeroesDetailActivity.EXTRA_HERO)
+            intent.putExtra(HeroesDetailActivity.EXTRA_HERO, hero)
 
             context.startActivity(intent)
         }

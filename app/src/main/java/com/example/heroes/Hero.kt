@@ -1,4 +1,4 @@
-package com.example.heroesday1
+package com.example.heroes
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

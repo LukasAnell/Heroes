@@ -1,4 +1,4 @@
-package com.example.heroesday1
+package com.example.heroes
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.heroesday1.R
 import com.example.heroesday1.databinding.ActivityHeroesListBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -25,11 +26,13 @@ class HeroesListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHeroesListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = "Heroes"
         loadJSON()
         Log.d(TAG, "heroList: $heroList")
+        refreshList()
+    }
 
-        // sortHeroes()
-
+    private fun refreshList() {
         val heroAdapter = HeroAdapter(heroList)
 
         val recyclerView: RecyclerView = binding.recyclerViewHeroesListHeroes
@@ -37,8 +40,16 @@ class HeroesListActivity : AppCompatActivity() {
         recyclerView.adapter = heroAdapter
     }
 
-    private fun sortHeroes() {
+    private fun sortByName() {
+        heroList = heroList.sortedBy { it.name }
+    }
+
+    private fun sortByRanking() {
         heroList = heroList.sortedBy { it.ranking }
+    }
+
+    private fun sortByDescription() {
+        heroList = heroList.sortedBy { it.description }
     }
 
     private fun loadJSON() {
@@ -56,19 +67,26 @@ class HeroesListActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.id.heroesList_menu_sortOptions, menu)
+        inflater.inflate(R.menu.sorting_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection.
         return when (item.itemId) {
-            R.id.new_game -> {
-                newGame()
+            R.id.menu_item_sortByName -> {
+                sortByName()
+                refreshList()
                 true
             }
-            R.id.help -> {
-                showHelp()
+            R.id.menu_item_sortByRanking -> {
+                sortByRanking()
+                refreshList()
+                true
+            }
+            R.id.menu_item_sortByDescriptionLength -> {
+                sortByDescription()
+                refreshList()
                 true
             }
             else -> super.onOptionsItemSelected(item)

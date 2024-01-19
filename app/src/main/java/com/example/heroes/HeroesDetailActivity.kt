@@ -1,4 +1,4 @@
-package com.example.heroesday1
+package com.example.heroes
 
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -19,13 +19,14 @@ class HeroesDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHeroesDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = "Heroes"
 
         val hero = intent.getParcelableExtra<Hero>(EXTRA_HERO)
-        val name = hero?.name
-        val description = hero?.description
-        val superpower = hero?.superpower
-        val ranking = hero?.ranking.toString()
-        val image = hero?.image
+        val name = hero?.name ?: ""
+        val description = hero?.description ?: ""
+        val superpower = hero?.superpower ?: ""
+        val ranking = hero?.ranking.toString() ?: ""
+        val image = hero?.image ?: ""
 
         binding.textViewHeroesDetailName.text = if(name != "null") name else ""
         binding.textViewHeroesDetailDescription.text = if(description != "null") description else ""

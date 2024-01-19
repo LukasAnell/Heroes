@@ -5,7 +5,7 @@
     android:id="@+id/layout_heroesDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HeroesDetailActivity">
+    tools:context="com.example.heroes.HeroesDetailActivity">
 
     <TextView
         android:id="@+id/textView_heroesDetail_name"
